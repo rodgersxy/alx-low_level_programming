@@ -1,9 +1,9 @@
 #include <stdio.h>
 /**
  *
- * main - Prints the size of various types
+ * main - Entry point
  *
- * Return : 0 if program executed successfully
+ * Return : Always 0 (Success)
  */
 int main(void)
 {	
