@@ -20,7 +20,7 @@ int main(void)
 			if ((i + j) < ('8' + '9'))
 			{
 				putchar(',');
-				putchar(',');
+				putchar(' ');
 			}
 		}
 	}
