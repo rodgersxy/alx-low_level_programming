@@ -20,7 +20,7 @@ void print_number(int n)
 /**
  * print_integer - A function to priting n
  * @m: an input unsigned integer
- * Return: Nothing
+ * Return: single digit
  */
 void print_integer(int m)
 {
