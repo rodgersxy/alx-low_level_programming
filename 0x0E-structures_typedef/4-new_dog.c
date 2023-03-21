@@ -6,42 +6,40 @@
  * @name: name of the dog field
  * @age: age of the dog field
  * @owner: owner of the dog value field
- * Return: new struct of dog
+ * Return: newly created dog
  */
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	dog_t *new_dog;
-	char *cpyname, *cpyowner;
-	int len_name = 0, len_owner = 0, i;
+	dog_t *dog;
+	int name_len = 0, owner_len = 0;
 
-	if (name == NULL || owner == NULL)
-		return (NULL);
-
-	while (name[len_name])
-		len_name++;
-	while (owner[len_owner])
-		len_owner++;
-
-	new_dog = malloc(sizeof(dog_t));
-	if (new_dog == NULL)
-		return (NULL);
-
-	cpyname = malloc(len_name + 1);
-	if (cpyname == NULL)
-		return (NULL);
-	for (i = 0; name[i]; i++)
-		cpyname[i] = name[i];
-	cpyname[i] = '\0';
-
-	cpyowner = malloc(len_owner + 1);
-	if (cpyowner == NULL)
-		return (NULL);
-	for (i = 0; owner[i]; i++)
-		cpyowner[i] = owner[i];
-	cpyowner[i] = '\0';
-
-	new_dog->name = cpyname;
-	new_dog->age = age;
-	new_dog->owner = cpyowner;
-	return (new_dog);
+	for (name_len = 0; name && *(name + name_len) != '\0'; name_len++)
+		;
+	for (owner_len = 0; owner && *(owner + owner_len) != '\0'; owner_len++)
+		;
+	dog = malloc(sizeof(dog_t));
+	if (dog)
+	{
+		dog->name = malloc(sizeof(char) * (name_len + 1));
+		if (!dog->name)
+		{
+			free(dog);
+			return (NULL);
+		}
+		for (name_len = 0; name && *(name + name_len) != '\0'; name_len++)
+			*(dog->name + name_len) = *(name + name_len);
+		*(dog->name + name_len) = '\0';
+		dog->age = age;
+		dog->owner = malloc(sizeof(char) * (owner_len + 1));
+		if (!dog->owner)
+		{
+			free(dog->name);
+			free(dog);
+			return (NULL);
+		}
+		for (owner_len = 0; owner && *(owner + owner_len) != '\0'; owner_len++)
+			*(dog->owner + owner_len) = *(owner + owner_len);
+		*(dog->owner + owner_len) = '\0';
+	}
+	return (dog);
 }
