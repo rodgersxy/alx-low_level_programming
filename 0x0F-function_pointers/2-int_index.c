@@ -5,17 +5,28 @@
  * @size: Size of the array
  * @cmp: A ponter to a function
  * Return: The index of the first element of which cmp function
- * does not return 0; -1 if no element of size <= 0
+ * does not return 0;
+ * if no match return -1
+ * if size <= 0 return -1
  */
 int int_index(int *array, int size, int (*cmp)(int))
 {
-	int i = 0;
+	int i;
+	int (*p)(int);
 
-	if (!cmp || size <= 0 || !array)/*checks for three conditions*/
+	p = cmp;
+
+	if (size <= 0)
+		return (-1);
+	if (!array || !cmp)
 		return (-1);
 
-	while (cmp(*(array + i)) == 0 && i < size)
-		i++;
-
-	return (cmp(*(array + i)) != 0 ? i : -1);
+	for (i = 0; i < size; i++)
+	{
+		if (p(array[i]) && array[i] != 0)
+			break;
+		if (i == size - 1)
+			return (-1);
+	}
+	return (i);
 }
