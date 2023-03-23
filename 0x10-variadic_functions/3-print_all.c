@@ -1,49 +1,84 @@
 #include "variadic_functions.h"
 #include <stdarg.h>
-#include <stdlib.h>
 #include <stdio.h>
 /**
- * print_all - A function that prints anything
- * @format: a list of type arguments passed to the function
- * Return: Nothing
+ * chk_char - prints the char character
+ * @list: the type
+ * Return: nothing
+ */
+void chk_char(va_list list)
+{
+	printf("%c", va_arg(list, int));
+}
+/**
+ * chk_int - prints the int
+ * @list: the type
+ * Return: nothing
+ */
+void chk_int(va_list list)
+{
+	printf("%i", va_arg(list, int));
+}
+/**
+ * chk_float - prints the float
+ * @list: the type
+ * Return: nothing
+ */
+void chk_float(va_list list)
+{
+	printf("%f", va_arg(list, double));
+}
+/**
+ * chk_string - prints the string
+ * @list: the type
+ * Return: nothing
+ */
+void chk_string(va_list list)
+{
+	char *str;
+
+	str = va_arg(list, char *);
+	if (str == NULL)
+		str = "(nil)";
+
+	printf("%s", str);
+}
+/**
+ * print_all - prints anything
+ * @format: list of types of arguments passed to function
+ * Return: nothing
  */
 void print_all(const char * const format, ...)
 {
-	int i = 0;
-	char *string, x;
-	va_list prints;
+	check_t types[] = {
+		{"c", chk_char},
+		{"i", chk_int},
+		{"f", chk_float},
+		{"s", chk_string},
+		{NULL, NULL}
+	};
 
-	va_start(prints, format);
+	int x = 0, y = 0;
+	va_list list;
+	char *sep = "";
 
-	while (format[i] != '\0')
+	va_start(list, format);
+
+	while (format && format[x])
 	{
-		switch (format[i])
+		while (types[y].chk)
 		{
-		case 'c':
-			printf("%c", va_arg(prints, int));
-			break;
-		case 'i':
-			printf("%d", va_arg(prints, int));
-			break;
-		case 'f':
-			printf("%f", va_arg(prints, double));
-			break;
-		case 's':
-			string = va_arg(prints, char *);
-			if (string == NULL)
-				string = "(nil)";
-			printf("%s", string);
-			break;
-		default:
-			break;
+			if (format[x] == *types[y].chk)
+			{
+				printf("%s", sep);
+				types[y].f(list);
+				sep = ", ";
+			}
+			y++;
 		}
-		i++;
-		x = format[i];
-
-		if ((x != '\0') && (x == 'c' || x == 'i' || x == 'f' || x == 's'))
-			printf(",");
+		y = 0;
+		x++;
 	}
-
 	printf("\n");
-	va_end(prints);
+	va_end(list);
 }
