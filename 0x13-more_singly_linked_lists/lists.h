@@ -1,4 +1,4 @@
-#include <stdio.>
+#include <stdio.h>
 #include <stdlib.h>
 #ifndef __LISTS_H__
 #define __LISTS_H__
