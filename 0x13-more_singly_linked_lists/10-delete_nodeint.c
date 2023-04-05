@@ -4,7 +4,7 @@
  * the node at index index of a listint_t linked list
  * @head: poinetr to pointer of the head
  * @index: index of the node
- * Return: 1 if it succeeded, -1 if it failed
+ * Return: Will be 1 if it succeeded, -1 if it failed
  */
 int delete_nodeint_at_index(listint_t **head, unsigned int index)
 {
@@ -15,7 +15,7 @@ int delete_nodeint_at_index(listint_t **head, unsigned int index)
 	if (*head == NULL || head == NULL)
 		return (-1);
 
-	for (; i < index - 1 && previous != NULL && index != 0; i++)
+	for (i = 0; i < index - 1 && previous != NULL && index != 0; i++)
 		previous = previous->next;
 
 	if (index == 0)
