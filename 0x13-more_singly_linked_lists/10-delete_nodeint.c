@@ -29,8 +29,8 @@ int delete_nodeint_at_index(listint_t **head, unsigned int index)
 	else
 	{
 		if (previous->next == NULL)
-			/*will update the linked list after the deletion */
-			current = previous->next;
+			/*will update the linked list */
+			current = NULL;
 		else
 			current = previous->next->next;
 		free(previous->next);
