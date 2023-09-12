@@ -20,7 +20,8 @@ int interpolation_search(int *array, size_t size, int value)
 	while ((array[high] != array[low]))
 	{
 		mid = low +
-			(((double)(high - low) / (array[high] - array[low])) * (value - array[low]));
+			(((double)(high - low)
+					    / (array[high] - array[low])) * (value - array[low]));
 		if (mid >= size)
 		{
 			printf("Value checked array[%lu] is out of range\n", mid);
@@ -32,7 +33,7 @@ int interpolation_search(int *array, size_t size, int value)
 		if (array[mid] < value)
 			low = mid + 1;
 		else if (array[mid] > value)
-			high = mid -1;
+			high = mid - 1;
 		else
 			return (mid);
 	}
